@@ -1,17 +1,17 @@
 #include "fileParser.h"
 #include <iostream>
 using namespace std;
-FileParser::FileParser(std::string fileName,bool ifBinary){
+FileParser::FileParser(std::string fileName,bool ifBinary, bool required){
     this->fileName=fileName;
     this->ifBinary=ifBinary;
     
     if (ifBinary)
         fileStream.open(fileName,ios::binary | ios::in | ios::out);
     else
-        fileStream.open(fileName);
+        fileStream.open(fileName,(required)?(ios::out):(ios::in | ios::out));
     
 }
-FileParser& FileParser::operator>>(std::string &aString){
+FileParser& FileParser::operator>>(std::string& aString){
     char c;
     aString="";
     if (!ifBinary)
@@ -37,6 +37,20 @@ FileParser& FileParser::operator>>(std::string &aString){
     }
     return *this;
 }
+
+FileParser& FileParser::operator<<(std::string aString){
+    fileStream << aString;
+    ;return *this;
+}
+
+FileParser& FileParser::operator<<(pair <string,int> aFormattedString){
+    string aString(aFormattedString.first);
+    while (aString.length() < aFormattedString.second)
+        aString.insert(aString.begin(),'0');
+    fileStream << aString;
+    ;return *this;
+}
+
 bool FileParser::eof(){
     return fileStream.eof();
 }

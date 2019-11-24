@@ -23,6 +23,15 @@ int main(int argc, char* argv[]){
         SI>>a1>>b1>>c1;
         cout<<a1<<" "<<b1<<" "<<c1;
         cout<< endl;
-
     }
+    FileParser TRI(transactionIFile);
+    string x,y,z,t;
+    cout<<"TRANSACTION"<<endl;
+    while (!TRI.eof()){
+        TRI>>x>>y>>z>>t;
+        cout<<x<<" "<<y<<" "<<z<<" "<<t<<endl;
+    }
+    FileParser TO(territoryOFile,false,true);
+    TO << x <<" "<<y<<" "<<z<<" "<<t<<"\n";
+    TO.close();
 }

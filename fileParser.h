@@ -4,6 +4,7 @@
 #include <fstream>
 #include <ostream>
 #include <sstream>
+#include <utility>
 using namespace std;
 class FileParser{
     private:
@@ -12,8 +13,10 @@ class FileParser{
         stringstream lineStream;
         bool ifBinary;
     public:
-        FileParser(std::string fileName, bool ifBinary=false);
+        FileParser(std::string fileName, bool ifBinary=false, bool required=false);
         FileParser& operator>>(string &aString);
+        FileParser& operator<<(string aString);
+        FileParser& operator<<(pair <string,int> aFormattedString);
         bool eof();
         void close();
 };

@@ -2,6 +2,7 @@
 #define transaction_header
 #include <string>
 #include "saleRep.h"
+#include <utility>
 enum TransactionType {
     SALE,
     VALUEADDED,
@@ -24,7 +25,7 @@ class Transaction{
         string getSaleRepId();
         SaleRep* getSaleRep();
         void setSaleRep(SaleRep* saleRep);
-        int getAmount();
+        pair<int,int> getAmount();
 };
 
 #endif

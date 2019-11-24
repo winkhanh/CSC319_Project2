@@ -29,6 +29,15 @@ void Transaction::setSaleRep(SaleRep* saleRep){
     this->saleRep=saleRep;
 }
 
-int Transaction::getAmount(){
-    return this->amount;
+pair<int,int> Transaction::getAmount(){
+    switch (this->type){
+        case SALE: return make_pair(this->amount,this->amount*1.1);
+        case VALUEADDED: return make_pair((this->amount),(this->amount)*1.1);
+        case CREDIT: return make_pair(-(this->amount),-(this->amount));
+        case CANCEL: return make_pair(-(this->amount),-(this->amount)*1.25);
+        case PROMO: return make_pair(-(this->amount),0);
+        case DISCOUNT: return make_pair(-(this->amount),-(this->amount)*1/1);
+        case INTERTERRITORY: return make_pair(0,(this->amount)*0.75);
+        default: return make_pair(0,0);
+    }
 }
