@@ -8,11 +8,11 @@ Territory* Territory::createTerritory(string id, string type){
 }
 
 //Constructors
-Territory::Territory(int id){
+Territory::Territory(string id){
     this->id=id;
 }
-PremiumTerritory::PremiumTerritory(int id):Territory(id){};
-NormalTerritory::NormalTerritory(int id):Territory(id){};
+PremiumTerritory::PremiumTerritory(string id):Territory(id){};
+NormalTerritory::NormalTerritory(string id):Territory(id){};
 
 //getAmount func
 int Territory::getAmount(){

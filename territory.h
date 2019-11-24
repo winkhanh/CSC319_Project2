@@ -4,23 +4,23 @@
 using namespace std;
 class Territory{
     protected:
-        int id;
+        string id;
         int amount;
     public:
-        Territory(int id);
-        static Territory* createTerritory(int id, string type);
+        Territory(string id);
+        static Territory* createTerritory(string id, string type);
         virtual void resolve(int amount)=0;
         int getAmount();
 };
 
 class PremiumTerritory: public Territory{
     public:
-        PremiumTerritory(int id);
+        PremiumTerritory(string id);
         void resolve(int amount);
 };
 class NormalTerritory: public Territory{
     public:
-        NormalTerritory(int id);
+        NormalTerritory(string id);
         void resolve(int amount);
 };
 #endif
