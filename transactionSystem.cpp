@@ -23,6 +23,9 @@ vector <SaleRep*> TransactionSystem::getSaleReps(){
     for (auto saleRepit = this->mapSaleRep.begin(); saleRepit != this->mapSaleRep.end();saleRepit++){
         aList.push_back(saleRepit->second);
     };
+    sort(aList.begin(),aList.end(),[](SaleRep* x, SaleRep* y)->bool{
+        return (x->getAmount() ==y->getAmount())?(x->getId() < y->getId()):(x->getAmount()>y->getAmount());
+    });
     return aList;
 }
 
@@ -31,6 +34,9 @@ vector <Territory*> TransactionSystem::getTerritories(){
     for (auto territoryit = this->mapTerritory.begin(); territoryit != this->mapTerritory.end();territoryit++){
         aList.push_back(territoryit->second);
     };
+    sort(aList.begin(),aList.end(),[](Territory* x, Territory* y)->bool{
+        return (x->getAmount() == y->getAmount())?(x->getId() < y->getId()):(x->getAmount()>y->getAmount());
+    });
     return aList;
 }
 

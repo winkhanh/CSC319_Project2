@@ -1,6 +1,7 @@
 #ifndef sale_rep_header
 #define sale_rep_header
 #include <string>
+#include <iostream>
 #include "territory.h"
 class SaleRep{
     private:
@@ -16,6 +17,7 @@ class SaleRep{
         void resolve(int amount);
         string getId();
         int getAmount();
+        friend ostream& operator<< (ostream& out,SaleRep& saleRep);
 };
 
 #endif

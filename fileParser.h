@@ -5,6 +5,8 @@
 #include <ostream>
 #include <sstream>
 #include <utility>
+#include "territory.h"
+#include "saleRep.h"
 using namespace std;
 class FileParser{
     private:
@@ -15,8 +17,8 @@ class FileParser{
     public:
         FileParser(std::string fileName, bool ifBinary=false, bool required=false);
         FileParser& operator>>(string &aString);
-        FileParser& operator<<(string aString);
-        FileParser& operator<<(pair <string,int> aFormattedString);
+        FileParser& operator<<(SaleRep& aSaleRep);
+        FileParser& operator<<(Territory& aTerritory);
         bool eof();
         void close();
 };

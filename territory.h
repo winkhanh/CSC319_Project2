@@ -1,6 +1,7 @@
 #ifndef territory_header
 #define territory_header
 #include <string>
+#include <iostream>
 using namespace std;
 class Territory{
     protected:
@@ -12,6 +13,7 @@ class Territory{
         string getId();
         virtual void resolve(int amount)=0;
         int getAmount();
+        friend ostream& operator<<(ostream& out, Territory& territory);  
 };
 
 class PremiumTerritory: public Territory{

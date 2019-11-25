@@ -38,3 +38,12 @@ void NormalTerritory::resolve(int amount){
 string Territory::getId(){
     return this->id;
 }
+
+ostream& operator<<(ostream& out, Territory& territory ){
+    out << territory.getId() << ",";
+    out.fill('0');
+    out.width(7);
+    out << territory.getAmount()<<endl;
+    out.clear();
+    return out;
+}

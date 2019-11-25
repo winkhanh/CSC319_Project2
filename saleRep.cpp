@@ -29,3 +29,11 @@ string SaleRep::getId(){
 int SaleRep::getAmount(){
     return this->amount;
 }
+
+ostream& operator<<(ostream& out,SaleRep& saleRep){
+    out<<saleRep.getId() <<",";
+    out.width(7);cout.fill('0');
+    out<<saleRep.getAmount() << endl;
+    out.clear();    
+    return out;
+}

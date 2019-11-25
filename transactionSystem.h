@@ -8,6 +8,7 @@
 #include <string>
 #include <utility>
 #include <iostream>
+#include <algorithm>
 using namespace std;
 class TransactionSystem{
     private:

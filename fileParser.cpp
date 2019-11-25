@@ -38,17 +38,14 @@ FileParser& FileParser::operator>>(std::string& aString){
     return *this;
 }
 
-FileParser& FileParser::operator<<(std::string aString){
-    fileStream << aString;
-    ;return *this;
+FileParser& FileParser::operator<<(SaleRep& aSaleRep){
+    fileStream<<aSaleRep;
+    return *this;
 }
 
-FileParser& FileParser::operator<<(pair <string,int> aFormattedString){
-    string aString(aFormattedString.first);
-    while (aString.length() < aFormattedString.second)
-        aString.insert(aString.begin(),'0');
-    fileStream << aString;
-    ;return *this;
+FileParser& FileParser::operator<<(Territory& aTerritory){
+    fileStream << aTerritory;
+    return *this;
 }
 
 bool FileParser::eof(){

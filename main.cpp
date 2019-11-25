@@ -33,8 +33,12 @@ int main(int argc, char* argv[]){
         managementSystem.resolving(new Transaction(id,salerepId,type,amount));
     }
     RI.close();
-    for (SaleRep* saleRep:managementSystem.getSaleReps()){
-        cout<<saleRep->getId() <<"," << saleRep->getAmount() << endl;
+    for (Territory* territory:managementSystem.getTerritories()){
+        TO << *territory;
     }
-    TI.close();
+    TO.close();
+    //Write to console
+    for (SaleRep* saleRep:managementSystem.getSaleReps()){
+        cout<< (*saleRep);
+    }
 }
