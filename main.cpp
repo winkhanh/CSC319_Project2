@@ -1,37 +1,40 @@
 #include <string>
-#include "fileParser.h"
 #include <iostream>
 #include <tuple>
+#include "fileParser.h"
+#include "transactionSystem.h"
+#include "transaction.h"
+#include "territory.h"
+#include "saleRep.h"
 int main(int argc, char* argv[]){    
     std::string territoryIFile=argv[1];
     std::string salerepIOFile=argv[2];
     std::string transactionIFile=argv[3];
     std::string territoryOFile=argv[4];
     FileParser TI(territoryIFile);
-    std::string a;
-    std::string b;
-    cout<<"Territory"<<endl;
+    FileParser SI(salerepIOFile);
+    FileParser RI(transactionIFile);
+    FileParser TO(territoryOFile,false,true);
+    TransactionSystem managementSystem;
     while (!TI.eof()){
-        TI>>b>>a;
-        cout<<b<<" "<<b<<endl;
+        string id, type;
+        TI >> id >> type;
+        managementSystem+= Territory::createTerritory(id,type);
     }
     TI.close();
-    FileParser SI(salerepIOFile);
-    string a1,b1,c1;
-    cout<<"SALEREP:"<<endl;
     while (!SI.eof()){
-        SI>>a1>>b1>>c1;
-        cout<<a1<<" "<<b1<<" "<<c1;
-        cout<< endl;
+        string id, terId, amount;
+        SI>> id >> terId >> amount;
+        managementSystem+= new SaleRep(id,terId,amount);
     }
-    FileParser TRI(transactionIFile);
-    string x,y,z,t;
-    cout<<"TRANSACTION"<<endl;
-    while (!TRI.eof()){
-        TRI>>x>>y>>z>>t;
-        cout<<x<<" "<<y<<" "<<z<<" "<<t<<endl;
+    while (!RI.eof()){
+        string id, salerepId, type, amount;
+        RI>> id >> salerepId >> type >> amount;
+        managementSystem.resolving(new Transaction(id,salerepId,type,amount));
     }
-    FileParser TO(territoryOFile,false,true);
-    TO << x <<" "<<y<<" "<<z<<" "<<t<<"\n";
-    TO.close();
+    RI.close();
+    for (SaleRep* saleRep:managementSystem.getSaleReps()){
+        cout<<saleRep->getId() <<"," << saleRep->getAmount() << endl;
+    }
+    TI.close();
 }

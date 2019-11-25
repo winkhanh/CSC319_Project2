@@ -9,6 +9,7 @@ class Territory{
     public:
         Territory(string id);
         static Territory* createTerritory(string id, string type);
+        string getId();
         virtual void resolve(int amount)=0;
         int getAmount();
 };

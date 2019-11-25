@@ -1,6 +1,5 @@
 #include "transaction.h"
-
-Transaction::Transaction(string id,string salereipId,string amount,string type){
+Transaction::Transaction(string id,string saleRepId,string type,string amount){
     this->id=id;
     this->saleRepId=saleRepId;
     this->amount=stoi(amount);

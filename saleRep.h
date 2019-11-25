@@ -14,6 +14,8 @@ class SaleRep{
         Territory* getTerritory();
         void setTerritory(Territory* territory);
         void resolve(int amount);
+        string getId();
+        int getAmount();
 };
 
 #endif

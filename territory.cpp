@@ -5,11 +5,13 @@ Territory* Territory::createTerritory(string id, string type){
         return new PremiumTerritory(id);
     if (type=="NORMAL")
         return new NormalTerritory(id);
+    return NULL;
 }
 
 //Constructors
 Territory::Territory(string id){
     this->id=id;
+    this->amount=0;
 }
 PremiumTerritory::PremiumTerritory(string id):Territory(id){};
 NormalTerritory::NormalTerritory(string id):Territory(id){};
@@ -31,3 +33,8 @@ void NormalTerritory::resolve(int amount){
     this->amount+=amount;
 }
 
+//getId function
+
+string Territory::getId(){
+    return this->id;
+}

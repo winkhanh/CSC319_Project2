@@ -21,3 +21,11 @@ void SaleRep::setTerritory(Territory* territory){
 void SaleRep::resolve(int amount){
     this->amount+=amount;
 }
+
+string SaleRep::getId(){
+    return this->id;
+}
+
+int SaleRep::getAmount(){
+    return this->amount;
+}
