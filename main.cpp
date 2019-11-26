@@ -12,7 +12,7 @@ int main(int argc, char* argv[]){
     std::string transactionIFile=argv[3];
     std::string territoryOFile=argv[4];
     TextFileParser TI(territoryIFile);
-    BinaryFileParser SI(salerepIOFile);
+    BinaryFileParser SIO(salerepIOFile);
     TextFileParser RI(transactionIFile);
     TextFileParser TO(territoryOFile,true);
     TransactionSystem managementSystem;
@@ -22,9 +22,9 @@ int main(int argc, char* argv[]){
         managementSystem+= Territory::createTerritory(id,type);
     }
     TI.close();
-    while (!SI.eof()){
+    while (!SIO.eof()){
         string id, terId, amount;
-        SI>> id >> terId >> amount;
+        SIO>> id >> terId >> amount;
         managementSystem+= new SaleRep(id,terId,amount);
     }
     while (!RI.eof()){
@@ -33,7 +33,6 @@ int main(int argc, char* argv[]){
         managementSystem.resolving(new Transaction(id,salerepId,type,amount));
     }
     RI.close();
-
     for (Territory* territory:managementSystem.getTerritories()){
         TO << *territory;
     }
@@ -41,7 +40,7 @@ int main(int argc, char* argv[]){
     //Write to console
     for (SaleRep* saleRep:managementSystem.getSaleReps()){
         cout<< (*saleRep);
-        SI << *saleRep;
+        SIO << *saleRep;
     }
-    SI.close();
+    SIO.close();
 }
