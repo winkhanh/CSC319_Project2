@@ -2,25 +2,42 @@
 #define file_parser_header
 #include <string>
 #include <fstream>
-#include <ostream>
+#include <iostream>
 #include <sstream>
 #include <utility>
+#include <vector>
 #include "territory.h"
 #include "saleRep.h"
 using namespace std;
 class FileParser{
-    private:
+    protected:
         string fileName;
         fstream fileStream;
-        stringstream lineStream;
-        bool ifBinary;
     public:
-        FileParser(std::string fileName, bool ifBinary=false, bool required=false);
-        FileParser& operator>>(string &aString);
-        FileParser& operator<<(SaleRep& aSaleRep);
-        FileParser& operator<<(Territory& aTerritory);
+        FileParser(string fileName);
+        virtual FileParser& operator>>(string &aString)=0;
+        virtual FileParser& operator<<(SaleRep& aSaleRep)=0;
         bool eof();
         void close();
+};
+
+class TextFileParser: public FileParser{
+    private:
+        stringstream lineStream;
+    public:
+        TextFileParser(string fileName,bool required=false);
+        TextFileParser& operator>>(string &aString);
+        TextFileParser& operator<<(SaleRep& aSaleRep);
+        TextFileParser& operator<<(Territory& aTerritory);
+};
+
+class BinaryFileParser: public FileParser{
+    private:
+        vector <unsigned char> buffer;
+    public:
+        BinaryFileParser(string fileName);
+        BinaryFileParser& operator>>(string &aString);
+        BinaryFileParser& operator<<(SaleRep& aSaleRep);
 };
 
 #endif

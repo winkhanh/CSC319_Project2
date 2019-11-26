@@ -1,53 +1,58 @@
 #include "fileParser.h"
-#include <iostream>
 using namespace std;
-FileParser::FileParser(std::string fileName,bool ifBinary, bool required){
+
+//Constructor 
+FileParser::FileParser(string fileName){
     this->fileName=fileName;
-    this->ifBinary=ifBinary;
-    
-    if (ifBinary)
-        fileStream.open(fileName,ios::binary | ios::in | ios::out);
-    else
-        fileStream.open(fileName,(required)?(ios::out):(ios::in | ios::out));
-    
 }
-FileParser& FileParser::operator>>(std::string& aString){
+
+TextFileParser::TextFileParser(string fileName,bool required) : FileParser(fileName){
+    fileStream.open(fileName,(required)?(fstream::out):(fstream::in | fstream::out));
+}
+BinaryFileParser::BinaryFileParser(string fileName) : FileParser(fileName){
+    fileStream.open(fileName,fstream::binary | fstream::in | fstream::out);
+    this->buffer=vector<unsigned char>((istreambuf_iterator<char>(fileStream)),istreambuf_iterator<char>());    
+}
+
+// operator >>
+TextFileParser& TextFileParser::operator>>(string& aString){
     char c;
     aString="";
-    if (!ifBinary)
-    {
-        bool ifWord=false;
-        if (lineStream.eof() || lineStream.str()==""){
-            string line;
-            lineStream.clear();
-            getline(fileStream,line);
-            lineStream.str(line);
-        }
-        while (lineStream >> c){
-            if ((c>='A' && c<='Z') || (c>='a' && c<='z') || (c>='0' && c<='9'))
-                {aString.insert(aString.end(),c);ifWord=true;}
-            else{
-                if (ifWord) break;
-            }
-        }
+    bool ifWord=false;
+    if (lineStream.eof() || lineStream.str()==""){
+        string line;
+        lineStream.clear();
+        getline(fileStream,line);
+        lineStream.str(line);
     }
-    else
-    {
-       //TODO
+    while (lineStream >> c){
+        if ((c>='A' && c<='Z') || (c>='a' && c<='z') || (c>='0' && c<='9'))
+            {aString.insert(aString.end(),c);ifWord=true;}
+        else{
+            if (ifWord) break;
+        }
     }
     return *this;
 }
+BinaryFileParser& BinaryFileParser::operator>>(string& aString){
+    return *this;
+}
 
-FileParser& FileParser::operator<<(SaleRep& aSaleRep){
+//operator <<
+TextFileParser& TextFileParser::operator<<(SaleRep& aSaleRep){
     fileStream<<aSaleRep;
     return *this;
 }
 
-FileParser& FileParser::operator<<(Territory& aTerritory){
+TextFileParser& TextFileParser::operator<<(Territory& aTerritory){
     fileStream << aTerritory;
     return *this;
 }
+BinaryFileParser& BinaryFileParser::operator<<(SaleRep& aSaleRep){
+    return *this;
+}
 
+//common function
 bool FileParser::eof(){
     return fileStream.eof();
 }

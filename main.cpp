@@ -11,10 +11,10 @@ int main(int argc, char* argv[]){
     std::string salerepIOFile=argv[2];
     std::string transactionIFile=argv[3];
     std::string territoryOFile=argv[4];
-    FileParser TI(territoryIFile);
-    FileParser SI(salerepIOFile);
-    FileParser RI(transactionIFile);
-    FileParser TO(territoryOFile,false,true);
+    TextFileParser TI(territoryIFile);
+    TextFileParser SI(salerepIOFile);
+    TextFileParser RI(transactionIFile);
+    TextFileParser TO(territoryOFile,true);
     TransactionSystem managementSystem;
     while (!TI.eof()){
         string id, type;
