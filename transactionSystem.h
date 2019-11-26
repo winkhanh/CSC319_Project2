@@ -21,6 +21,7 @@ class TransactionSystem{
         void resolving(Transaction* aTransaction);
         vector < SaleRep* > getSaleReps();
         vector < Territory*> getTerritories();
+        ~TransactionSystem();
 };
 
 #endif

@@ -52,4 +52,14 @@ void TransactionSystem::resolving(Transaction* aTransaction){
     pair < int, int > amount= aTransaction->getAmount();
     territory->resolve(amount.first);
     saleRep->resolve(amount.second);    
+    delete aTransaction;
+}
+
+TransactionSystem::~TransactionSystem(){
+    for (auto territoryit = this->mapTerritory.begin(); territoryit != this->mapTerritory.end();territoryit++){
+        delete territoryit->second;
+    }
+    for (auto saleRepit = this->mapSaleRep.begin(); saleRepit != this->mapSaleRep.end();saleRepit++){
+        delete saleRepit->second;
+    }
 }

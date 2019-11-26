@@ -6,6 +6,7 @@
 #include <sstream>
 #include <utility>
 #include <vector>
+#include <iterator>
 #include "territory.h"
 #include "saleRep.h"
 using namespace std;
@@ -34,10 +35,13 @@ class TextFileParser: public FileParser{
 class BinaryFileParser: public FileParser{
     private:
         vector <unsigned char> buffer;
+        int readPos;
     public:
         BinaryFileParser(string fileName);
         BinaryFileParser& operator>>(string &aString);
         BinaryFileParser& operator<<(SaleRep& aSaleRep);
+        bool eof();
+        void flush();
 };
 
 #endif

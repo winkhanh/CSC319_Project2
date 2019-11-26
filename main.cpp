@@ -12,7 +12,7 @@ int main(int argc, char* argv[]){
     std::string transactionIFile=argv[3];
     std::string territoryOFile=argv[4];
     TextFileParser TI(territoryIFile);
-    TextFileParser SI(salerepIOFile);
+    BinaryFileParser SI(salerepIOFile);
     TextFileParser RI(transactionIFile);
     TextFileParser TO(territoryOFile,true);
     TransactionSystem managementSystem;
@@ -33,6 +33,7 @@ int main(int argc, char* argv[]){
         managementSystem.resolving(new Transaction(id,salerepId,type,amount));
     }
     RI.close();
+
     for (Territory* territory:managementSystem.getTerritories()){
         TO << *territory;
     }
@@ -40,5 +41,7 @@ int main(int argc, char* argv[]){
     //Write to console
     for (SaleRep* saleRep:managementSystem.getSaleReps()){
         cout<< (*saleRep);
+        SI << *saleRep;
     }
+    SI.close();
 }
