@@ -22,28 +22,32 @@ int main(int argc, char* argv[]){
     TextFileParser RI(transactionIFile);
     TextFileParser TO(territoryOFile,true);
     TransactionSystem managementSystem;
+    //Read file Territory
     while (!TI.eof()){
         string id, type;
         TI >> id >> type;
         managementSystem+= Territory::createTerritory(id,type);
     }
     TI.close();
+    //Read file SaleRep
     while (!SIO.eof()){
         string id, terId, amount;
         SIO>> id >> terId >> amount;
         managementSystem+= new SaleRep(id,terId,amount);
     }
+    //Read file Transaction
     while (!RI.eof()){
         string id, salerepId, type, amount;
         RI>> id >> salerepId >> type >> amount;
         managementSystem.resolving(new Transaction(id,salerepId,type,amount));
     }
     RI.close();
+    //Write to File Output
     for (Territory* territory:managementSystem.getTerritories()){
         TO << *territory;
     }
     TO.close();
-    //Write to console
+    //Write to console and Edit file SaleRep
     for (SaleRep* saleRep:managementSystem.getSaleReps()){
         cout<< (*saleRep);
         SIO << *saleRep;
