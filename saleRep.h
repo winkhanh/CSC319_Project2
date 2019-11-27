@@ -10,7 +10,7 @@ class SaleRep{
         string territoryId;
         Territory* territory;
     public:
-        SaleRep(string id, string teritoryId,string amount);
+        SaleRep(string id, string territoryId,string amount);
         string getTerritoryId();
         Territory* getTerritory();
         void setTerritory(Territory* territory);

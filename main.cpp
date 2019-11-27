@@ -1,3 +1,9 @@
+//Completed 11/27/2019
+//Project2-CSC319
+//Team 2:
+//Dominic Le
+//Minh Le
+//Quan Le
 #include <string>
 #include <iostream>
 #include <tuple>
